@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# 获取用户名
+myuser=`whoami`
+
+# 执行ps grep命令获取pid
+mypid=`ps -u ${myuser} | grep keymngserver | awk {'print $1'}`
+
+# pid判空
+if [ -z ${mypid} ]; then
+  echo 'keymngserver is not start'
+  exit 1;
+fi
+
+# 杀死进程
+kill -12 $mypid
+echo 'keymngserver is killed'
